@@ -39,5 +39,36 @@ function limpiarError() {
 }
 
 function calcularPrecio() {
-    
+    const valNombre = nombre.value;
+    const valDestino = destino.value;
+    const valNumDia = numDias.value;
+
+    const totalPrecio = calcularTotalPrecio(valDestino, valNumDia);
+
+    mostrarDatos(valNombre, valDestino, totalPrecio);
+}
+
+function calcularTotalPrecio(destino, dias) {
+    let total = 0;
+    switch (destino) {
+        case "espania":
+            total = (5000 * dias) * 1.15;
+            break;
+        case "eua":
+            total = (3000 * dias) * 1.15;
+            break;
+        case "canada":
+            total = (4000 * dias) * 1.15;
+                break;
+    }
+    return total;
+}
+
+function mostrarDatos(nombre, destino, totalPrecio) {
+    const datos = `<p>
+                        Nombre: ${nombre} Destino: ${destino}  
+                        Total: ${totalPrecio}
+                   </p> 
+    `;
+    document.querySelector('#campos').insertBefore(datos, document.querySelector('#btnEnviar'));
 }
