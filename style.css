@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.contenedor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.contenedor > div {
+    width: 100%;
+    text-align: center;
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+
+.formulario > input, .formulario > select, .formulario > label {
+    margin-top: 5px;
+    font-size: 13pt;
+    padding: 5px 10px;
+}
+
+.contenedor > h1 {
+    padding: 0 100%;
+}
