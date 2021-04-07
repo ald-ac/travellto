@@ -2,7 +2,7 @@
 const formulario = document.querySelector('#formulario');
 const btnVerViajes = document.querySelector('#verViajes');
 const resultado = document.querySelector('#resultado');
-const listaViajes = document.querySelector('lista-viajes');
+const listaViajes = document.querySelector('#lista-viajes');
 
 //Variables
 let viajes = [];
@@ -12,10 +12,21 @@ formulario.addEventListener('submit', calcularViaje);
 btnVerViajes.addEventListener('click', listarViajes);
 
 function listarViajes() {
+    limpiarViajes();
+
+    console.log('Viajes');
     viajes.forEach(viaje => {
-        document.createElement('p');
-        document.innerText = viaje.insertBefore
+        const viajeHTML = document.createElement('li');
+        const detalleViaje = `<p>Nombre: ${viaje.nombre} | Destino: ${viaje.destino} | Total: ${viaje.total}<p>`;
+        viajeHTML.innerHTML = detalleViaje;
+        listaViajes.appendChild(viajeHTML);
     });
+}
+
+function limpiarViajes() {
+    while(listaViajes.firstChild) {
+        listaViajes.removeChild(listaViajes.firstChild);
+    }
 }
 
 function calcularViaje(e) {
@@ -40,9 +51,9 @@ function calcularViaje(e) {
         mostrarDatos(viaje);
     
         //Almacenar en array y localStorage
-        // viajes = [...viajes, viaje];
-        // console.log(viajes);
-        // localStorage.setItem('viajes',viajes);
+        viajes = [...viajes, viaje];
+        console.log(viajes);
+        localStorage.setItem('viajes',JSON.stringify(viajes));
 
     } else {
         mostrarError(); 

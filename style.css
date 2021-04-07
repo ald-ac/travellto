@@ -34,3 +34,14 @@
 #resultado {
     display: none;
 }
+
+#formulario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#listado-viajes {
+    max-width: 800px;
+    margin: 0 auto;
+}
