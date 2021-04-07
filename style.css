@@ -41,7 +41,6 @@
     align-items: center;
 }
 
-#listado-viajes {
-    max-width: 800px;
-    margin: 0 auto;
+#lista-viajes {
+    text-align: center;
 }

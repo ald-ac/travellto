@@ -9,18 +9,29 @@ let viajes = [];
 
 //Listeners
 formulario.addEventListener('submit', calcularViaje);
+
 btnVerViajes.addEventListener('click', listarViajes);
+
+document.addEventListener('DOMContentLoaded', cargarViajes);
+
+function cargarViajes() {
+    viajes = JSON.parse(localStorage.getItem('viajes')) || []; //Si no hay nada en local storage dejarlo vacio
+    listarViajes();
+}
 
 function listarViajes() {
     limpiarViajes();
 
-    console.log('Viajes');
-    viajes.forEach(viaje => {
-        const viajeHTML = document.createElement('li');
-        const detalleViaje = `<p>Nombre: ${viaje.nombre} | Destino: ${viaje.destino} | Total: ${viaje.total}<p>`;
-        viajeHTML.innerHTML = detalleViaje;
-        listaViajes.appendChild(viajeHTML);
-    });
+    if(viajes.length > 0) { //Solo listar si tiene elementos el arreglo viajes
+
+        viajes.forEach(viaje => {
+            const viajeHTML = document.createElement('p');
+            const detalleViaje = `Nombre: ${viaje.nombre} | Destino: ${viaje.destino} | Total: ${viaje.total}`;
+            viajeHTML.innerHTML = detalleViaje;
+            listaViajes.appendChild(viajeHTML);
+        });
+        
+    }
 }
 
 function limpiarViajes() {
