@@ -1,27 +1,56 @@
 //Botones|Acciones
 const formulario = document.querySelector('#formulario');
 const btnVerViajes = document.querySelector('#verViajes');
+const resultado = document.querySelector('#resultado');
+const listaViajes = document.querySelector('lista-viajes');
 
-//Campos
-const nombre = document.querySelector('#nombre');
-const destino = document.querySelector('#destino');
-const numDias = document.querySelector('#dias');
+//Variables
+let viajes = [];
 
 //Listeners
-formulario.addEventListener('submit', validarCampos);
+formulario.addEventListener('submit', calcularViaje);
+btnVerViajes.addEventListener('click', listarViajes);
 
-function validarCampos(e) {
+function listarViajes() {
+    viajes.forEach(viaje => {
+        document.createElement('p');
+        document.innerText = viaje.insertBefore
+    });
+}
+
+function calcularViaje(e) {
     e.preventDefault();
-    if(nombre.value !== '' && numDias.value !== '') {
-        limpiarError();
-        calcularPrecio();
+
+    const nombre = document.querySelector('#nombre').value;
+    const destino = document.querySelector('#destino').value;
+    const dias = parseInt(document.querySelector('#dias').value);
+
+    if(nombre.value !== '' && dias.value !== '') { //Cuando los campos esten llenos
+        limpiarError(); //Eliminar error si existe
+        
+        let viaje = {
+            nombre,
+            destino,
+            dias,
+            total: 0,
+        }
+    
+        viaje = calcularTotalPrecio(viaje);
+        console.log(viaje);
+        mostrarDatos(viaje);
+    
+        //Almacenar en array y localStorage
+        // viajes = [...viajes, viaje];
+        // console.log(viajes);
+        // localStorage.setItem('viajes',viajes);
+
     } else {
-        mostrarError();
+        mostrarError(); 
     }
 }
 
 function mostrarError() {
-    limpiarError();
+    limpiarError(); //Si ya hay un error limpiarlo
 
     const mensaje = document.createElement('p');
     mensaje.innerText = '¡Faltan campos por llenar!';
@@ -30,7 +59,7 @@ function mostrarError() {
 
     setTimeout(() => {
         limpiarError();
-    }, 2000);
+    }, 2000); //Mostrar error 2 segundos
 }
 
 function limpiarError() {
@@ -38,37 +67,35 @@ function limpiarError() {
     if(error) { error.remove(); }
 }
 
-function calcularPrecio() {
-    const valNombre = nombre.value;
-    const valDestino = destino.value;
-    const valNumDia = numDias.value;
-
-    const totalPrecio = calcularTotalPrecio(valDestino, valNumDia);
-
-    mostrarDatos(valNombre, valDestino, totalPrecio);
-}
-
-function calcularTotalPrecio(destino, dias) {
-    let total = 0;
-    switch (destino) {
+function calcularTotalPrecio(viaje) {
+    switch (viaje.destino) {
         case "espania":
-            total = (5000 * dias) * 1.15;
+            viaje.destino = 'España';
+            viaje.total = (5000 * viaje.dias) * 1.15;
             break;
         case "eua":
-            total = (3000 * dias) * 1.15;
+            viaje.destino = 'Estados Unidos';
+            viaje.total = (3000 * viaje.dias) * 1.15;
             break;
         case "canada":
-            total = (4000 * dias) * 1.15;
+            viaje.destino = 'Canada';
+            viaje.total = (4000 * viaje.dias) * 1.15;
                 break;
     }
-    return total;
+    return viaje;
 }
 
-function mostrarDatos(nombre, destino, totalPrecio) {
+function mostrarDatos(viaje) {
     const datos = `<p>
-                        Nombre: ${nombre} Destino: ${destino}  
-                        Total: ${totalPrecio}
+                        Nombre: ${viaje.nombre} <br> 
+                        Destino: ${viaje.destino}  <br>
+                        Total: $${viaje.total}
                    </p> 
     `;
-    document.querySelector('#campos').insertBefore(datos, document.querySelector('#btnEnviar'));
+    resultado.style.display = 'block';
+    resultado.innerHTML = datos;
+
+    setTimeout(() => {
+        resultado.style.display = 'none';
+    }, 3000);
 }

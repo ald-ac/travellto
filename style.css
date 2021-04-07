@@ -30,3 +30,7 @@
 .contenedor > h1 {
     padding: 0 100%;
 }
+
+#resultado {
+    display: none;
+}
