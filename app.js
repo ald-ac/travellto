@@ -19,7 +19,7 @@ function cargarViajes() {
 }
 
 function mostrarOcultarViajes() {
-    if(listaViajes.firstChild) {
+    if(listaViajes.firstChild) { //Si ya estan mostrados en listaViajes
         limpiarViajes();
     } else {
         listarViajes();
@@ -57,7 +57,7 @@ function calcularViaje(e) {
     const destino = document.querySelector('#destino').value;
     const dias = parseInt(document.querySelector('#dias').value);
 
-    if(nombre !== '' && !isNaN(dias)) { //Cuando los campos esten llenos
+    if(nombre !== '' && !isNaN(dias)) { //Cuando el valor de los datos proporcionado no sean vacios/nulos
         limpiarError(); //Eliminar error si existe
         
         let viaje = {
@@ -74,7 +74,7 @@ function calcularViaje(e) {
         viajes = [...viajes, viaje];
         localStorage.setItem('viajes',JSON.stringify(viajes));
 
-        if(listaViajes.firstChild) { //Si se estan mostrando los viajes, mostrar el nuevo agregado
+        if(listaViajes.firstChild) { //Si se estan mostrando los viajes en HTML, mostrar el nuevo agregado
             listarViajes();
         }
 
@@ -116,7 +116,7 @@ function calcularTotalPrecio(viaje) {
             viaje.total = ((4000 * viaje.dias) * 1.15).toFixed(2);
                 break;
     }
-    return viaje;
+    return viaje; //Retornar viaje recibido pero con el total calculado y nombre formal del Pais
 }
 
 function mostrarDatos(viaje) {
