@@ -33,11 +33,12 @@ function listarViajes() {
 
         viajes.forEach(viaje => {
             const viajeHTML = document.createElement('p');
-            const detalleViaje = `Nombre: ${viaje.nombre} | Destino: ${viaje.destino} | Total: ${viaje.total}`;
+            const detalleViaje = `Nombre: ${viaje.nombre} | Destino: ${viaje.destino} | Total: $${viaje.total}`;
             viajeHTML.innerHTML = detalleViaje;
             listaViajes.appendChild(viajeHTML);
         });
-        
+        //Agregar estilo cuando haya elementos
+        listaViajes.classList.add('border', 'border-primary', 'p-2', 'mb-1');
     }
 }
 
@@ -45,6 +46,8 @@ function limpiarViajes() {
     while(listaViajes.firstChild) {
         listaViajes.removeChild(listaViajes.firstChild);
     }
+    //Evitar que se vea el estilo del listado cuando no hay elementos
+    listaViajes.classList.remove('border', 'border-primary', 'p-2', 'mb-1'); 
 }
 
 function calcularViaje(e) {
