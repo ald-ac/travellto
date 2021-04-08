@@ -18,7 +18,7 @@
 .formulario {
     display: flex;
     flex-direction: column;
-    width: 300px;
+    width: 330px;
 }
 
 .formulario > input, .formulario > select, .formulario > label {

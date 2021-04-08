@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', cargarViajes);
 
 function cargarViajes() {
     viajes = JSON.parse(localStorage.getItem('viajes')) || []; //Si no hay nada en local storage dejarlo vacio
-    listarViajes();
 }
 
 function mostrarOcultarViajes() {
@@ -55,7 +54,7 @@ function calcularViaje(e) {
     const destino = document.querySelector('#destino').value;
     const dias = parseInt(document.querySelector('#dias').value);
 
-    if(nombre.value !== '' && dias.value !== '') { //Cuando los campos esten llenos
+    if(nombre !== '' && !isNaN(dias)) { //Cuando los campos esten llenos
         limpiarError(); //Eliminar error si existe
         
         let viaje = {
@@ -66,13 +65,15 @@ function calcularViaje(e) {
         }
     
         viaje = calcularTotalPrecio(viaje);
-        console.log(viaje);
         mostrarDatos(viaje);
     
         //Almacenar en array y localStorage
         viajes = [...viajes, viaje];
-        console.log(viajes);
         localStorage.setItem('viajes',JSON.stringify(viajes));
+
+        if(listaViajes.firstChild) { //Si se estan mostrando los viajes, mostrar el nuevo agregado
+            listarViajes();
+        }
 
     } else {
         mostrarError(); 
