@@ -10,13 +10,21 @@ let viajes = [];
 //Listeners
 formulario.addEventListener('submit', calcularViaje);
 
-btnVerViajes.addEventListener('click', listarViajes);
+btnVerViajes.addEventListener('click', mostrarOcultarViajes);
 
 document.addEventListener('DOMContentLoaded', cargarViajes);
 
 function cargarViajes() {
     viajes = JSON.parse(localStorage.getItem('viajes')) || []; //Si no hay nada en local storage dejarlo vacio
     listarViajes();
+}
+
+function mostrarOcultarViajes() {
+    if(listaViajes.firstChild) {
+        limpiarViajes();
+    } else {
+        listarViajes();
+    }
 }
 
 function listarViajes() {
