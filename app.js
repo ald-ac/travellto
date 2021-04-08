@@ -102,15 +102,15 @@ function calcularTotalPrecio(viaje) {
     switch (viaje.destino) {
         case "espania":
             viaje.destino = 'España';
-            viaje.total = (5000 * viaje.dias) * 1.15;
+            viaje.total = ((5000 * viaje.dias) * 1.15).toFixed(2);
             break;
         case "eua":
             viaje.destino = 'Estados Unidos';
-            viaje.total = (3000 * viaje.dias) * 1.15;
+            viaje.total = ((3000 * viaje.dias) * 1.15).toFixed(2);
             break;
         case "canada":
             viaje.destino = 'Canada';
-            viaje.total = (4000 * viaje.dias) * 1.15;
+            viaje.total = ((4000 * viaje.dias) * 1.15).toFixed(2);
                 break;
     }
     return viaje;
