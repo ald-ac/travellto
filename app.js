@@ -60,14 +60,10 @@ function calcularViaje(e) {
     if(nombre !== '' && !isNaN(dias)) { //Cuando el valor de los datos proporcionado no sean vacios/nulos
         limpiarError(); //Eliminar error si existe
         
-        let viaje = {
-            nombre,
-            destino,
-            dias,
-            total: 0,
-        }
+        let viaje = new Viaje(nombre, destino, dias);
     
-        viaje = calcularTotalPrecio(viaje);
+        //Llamar metodo para asignarle un total al viaje
+        viaje.calcularTotalPrecio();
         mostrarDatos(viaje);
     
         //Almacenar en array y localStorage
@@ -101,24 +97,6 @@ function limpiarError() {
     if(error) { error.remove(); }
 }
 
-function calcularTotalPrecio(viaje) {
-    switch (viaje.destino) {
-        case "espania":
-            viaje.destino = 'España';
-            viaje.total = ((5000 * viaje.dias) * 1.15).toFixed(2);
-            break;
-        case "eua":
-            viaje.destino = 'Estados Unidos';
-            viaje.total = ((3000 * viaje.dias) * 1.15).toFixed(2);
-            break;
-        case "canada":
-            viaje.destino = 'Canada';
-            viaje.total = ((4000 * viaje.dias) * 1.15).toFixed(2);
-                break;
-    }
-    return viaje; //Retornar viaje recibido pero con el total calculado y nombre formal del Pais
-}
-
 function mostrarDatos(viaje) {
     const datos = `<p>
                         Nombre: ${viaje.nombre} <br> 
@@ -132,4 +110,29 @@ function mostrarDatos(viaje) {
     setTimeout(() => {
         resultado.style.display = 'none';
     }, 3000);
+}
+
+//Objeto y prototype
+function Viaje(nombre, destino, dias) {
+    this.nombre = nombre;
+    this.destino = destino;
+    this.dias = dias;
+    this.total = 0;
+}
+
+Viaje.prototype.calcularTotalPrecio = function() {
+    switch (this.destino) {
+        case "espania":
+            this.destino = 'España';
+            this.total = ((5000 * this.dias) * 1.15).toFixed(2);
+            break;
+        case "eua":
+            this.destino = 'Estados Unidos';
+            this.total = ((3000 * this.dias) * 1.15).toFixed(2);
+            break;
+        case "canada":
+            this.destino = 'Canada';
+            this.total = ((4000 * this.dias) * 1.15).toFixed(2);
+                break;
+    }
 }
